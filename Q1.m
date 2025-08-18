@@ -1,34 +1,59 @@
-% Question 1 : WAP to read and display an digital image , split and display
-% the image into four (4) quandrants
+% Displaying read image
+img = imread('Lena.png');
 
-img = imread('img2.jpg');
-
+subplot(3,3,1);
 imshow(img);
-title('Full Image');
-[r,c,~]=size(img);
-mid_r = floor(r/2);
-mid_c = floor(c/2);
+title('Org Img');
+disp(img);  
 
-%horizzontal cross
-top_hf = img(1:mid_r,:,:);
-bottom_hf = img(mid_r+1:end,:,:);
+% Adding number to each pixel
+% img2 = imread('1.jpg');
+num=400;
+for i=1:size(img,1)
+    for j=1:size(img,2)
+        img(i,j)=img(i,j)+num;
+    end
+end
 
-%vertical cross
-left_hf = img(:,1:mid_c,:);
-right_hf = img(:,mid_c+1:end,:);
+subplot(3,3,2);
+imshow(img);
+title('Img with Added Num to Each Pixel Value');
 
-figure;
-imshow(top_hf);
-title('Top (Upper) ');
+% Split and Dislay in 4 quadrants
 
-figure;
-imshow(bottom_hf);
-title('Bottom (Lower) ');
+% copying Size of Row and Col 
 
-figure;
-imshow(left_hf);
-title('Left (first) ');
+[rw,col,~] = size(img);
 
-figure;
-imshow(right_hf);
-title('Right (Second) ');
+mid_rw = floor(rw/2);
+mid_col = floor(col/2);
+
+quad1 = img(1:mid_rw,1:mid_col,:);
+quad3 = img(mid_rw+1:end,1:mid_col,:);
+
+quad4 = img(mid_rw+1:end,1:mid_col,:);
+quad2 = img(1:mid_rw,mid_col+1:end,:);
+
+% Displaying
+
+subplot(3,3,5);
+imshow(quad1);
+title('Quad 1');
+
+
+subplot(3,3,8);
+imshow(quad3);
+title('quad3');
+
+
+
+subplot(3,3,9);
+imshow(quad4);
+title('quad4');
+
+
+
+subplot(3,3,6);
+imshow(quad2);
+title('quad2');
+
