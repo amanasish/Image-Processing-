@@ -1,0 +1,60 @@
+% Date 1 september
+
+% 1) WAP to enhance the image using HISTOGRAM EQUILIZATION
+
+% Read the image
+img = imread('Lena.png');
+
+% If it's a color image, convert to grayscale for simplicity
+if size(img,3) == 3
+    img_gray = rgb2gray(img);
+else
+    img_gray = img;
+end
+
+figure;
+subplot(3,3,1);
+imhist(img_gray);
+
+% Apply Histogram Equalization
+enhanced_img = histeq(img_gray);
+
+% Display the results
+
+subplot(3,3,2);
+imshow(img_gray);
+title('Original Grayscale Image');
+
+subplot(3,3,3);
+imshow(enhanced_img);
+title('Histogram Equalized Image');
+
+
+
+
+
+
+
+% 2) WAP to enhance the image using intensity slicing technique
+
+% Intensity Slicing Parameters
+% Define intensity range to highlight (e.g., between 100 and 150)
+lower_bound = 120;
+upper_bound = 180;
+
+% Initialize the intensity sliced image
+sliced_img = zeros(size(enhanced_img), 'uint8');
+
+% Apply intensity slicing:
+
+sliced_img(enhanced_img >= lower_bound & enhanced_img <= upper_bound) = 255;
+
+
+subplot(3,3,4);
+imhist(enhanced_img);
+
+subplot(3,3,5);
+imshow(sliced_img);
+title('Intensity Sliced Image');
+
+
