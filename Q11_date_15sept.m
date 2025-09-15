@@ -1,0 +1,44 @@
+% Image filtering: Laplacian, Average, and Weighted Average (3x3 weighted kernel)
+
+% Read image
+img = imread('Lena.png');
+
+% Convert to grayscale if RGB
+if size(img,3) == 3
+    img = rgb2gray(img);
+end
+
+
+
+% Convert to double for processing
+imgDouble = double(img);
+
+
+% Define kernels
+laplacianKernel = [0 1 0; 1 -4 1; 0 1 0];
+avgKernel = [1 1 1; 1 1 1; 1 1 1] / 9;
+weightedAvgKernel = [1 2 1; 2 8 2; 1 2 1] / 16;
+
+
+
+% Apply convolution
+imgLaplacian = conv2(imgDouble, laplacianKernel, 'same');
+imgAvg = conv2(imgDouble, avgKernel, 'same');
+imgWeightedAvg = conv2(imgDouble, weightedAvgKernel, 'same');
+
+
+% Normalize Laplacian output for display (because it may have negative values)
+imgLaplacianNorm = uint8(mat2gray(imgLaplacian) * 255);
+
+
+% Convert avg and weighted average results back to uint8
+imgAvg = uint8(imgAvg);
+imgWeightedAvg = uint8(imgWeightedAvg);
+
+
+% Display images
+figure;
+subplot(2,2,1), imshow(uint8(imgDouble)), title('Original Image');
+subplot(2,2,2), imshow(imgLaplacianNorm), title('Laplacian Filtered');
+subplot(2,2,3), imshow(imgAvg), title('Average Filtered');
+subplot(2,2,4), imshow(imgWeightedAvg), title('Weighted Average Filtered');
